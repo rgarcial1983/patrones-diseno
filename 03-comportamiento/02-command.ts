@@ -10,6 +10,5 @@
  * * Es útil cuando se necesita desacoplar el objeto que invoca
  * * la operación del objeto que sabe cómo realizarla.
  *
- * https://refactoring.guru/es/design-patterns/command
  *
  */
