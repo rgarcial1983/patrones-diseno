@@ -22,13 +22,15 @@ interface Observer {
 }
 
 // Clase Subject - WeatherStation
+// TODO: Terminal la implementación
 class WeatherStation {
   private observers: Observer[] = [];
   private weatherData: string = 'Soleado';
 
   // Agregar un Observer
   subscribe(observer: Observer): void {
-    // TODO: añadir observer
+    this.observers.push(observer);
+    observer.update(this.weatherData);
 
     console.log(
       '%cNueva aplicación suscrita al sistema meteorológico.',
@@ -38,8 +40,7 @@ class WeatherStation {
 
   // Eliminar un Observer
   unsubscribe(observer: Observer): void {
-    // TODO: eliminar observer
-
+    this.observers = this.observers.filter((sub) => sub !== observer);
     console.log(`%cUna aplicación se ha dado de baja`, COLORS.red);
   }
 
@@ -47,13 +48,15 @@ class WeatherStation {
   setWeather(weatherData: string): void {
     console.log(`\nClima actualizado: %c${weatherData}`, COLORS.blue);
 
-    // TODO: actualizar clima y notificar a todos los Observers con el método notifyObservers
+    this.weatherData = weatherData;
+    this.notifyObservers();
   }
 
   // Notificar a todos los Observers
   private notifyObservers(): void {
-    // TODO: implementar método
-    throw new Error('Method not implemented.');
+    for (const observer of this.observers) {
+      observer.update(this.weatherData);
+    }
   }
 }
 
@@ -68,7 +71,9 @@ class WeatherApp implements Observer {
   // Recibir actualización del clima
   update(weatherData: string): void {
     console.log(
-      `${this.name} ha recibido notificación del clima: %c${weatherData}`,
+      `%c${this.name} %cha recibido notificación del clima: %c${weatherData}`,
+      COLORS.red,
+      COLORS.white,
       COLORS.yellow
     );
   }
