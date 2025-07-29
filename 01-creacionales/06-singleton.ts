@@ -1,4 +1,4 @@
-/**
+ /**
  * ! Singleton:
  * Es un patrón de diseño creacional que garantiza que una clase
  * tenga una única instancia y proporciona un punto de acceso global a ella.
@@ -10,70 +10,66 @@
  * https://refactoring.guru/es/design-patterns/singleton
  */
 
-import { COLORS } from '../helpers/colors.ts';
+import { COLORS } from "../helpers/colors.ts";
 
-class DragonBalls {
-  private static instance: DragonBalls;
-  private ballsCollected: number;
+ class DragonBalls {
 
-  private constructor() {
-    this.ballsCollected = 0;
-  }
+    private static instance: DragonBalls;
+    private ballsCollected: number;
 
-  public static getInstance(): DragonBalls {
-    if (!DragonBalls.instance) {
-      DragonBalls.instance = new DragonBalls();
-      console.log('%cLas pelotas del Dragón han sido creadas!', COLORS.green);
+    private constructor() {
+        this.ballsCollected = 0;
     }
 
-    return DragonBalls.instance;
-  }
+    public static getInstance(): DragonBalls {
+        if(!DragonBalls.instance) {
+            DragonBalls.instance = new DragonBalls();
+            console.log('%cLas bolas del Dragón has sido creadas!', COLORS.green);
+        }
 
-  collectBall(): void {
-    if (this.ballsCollected < 7) {
-      this.ballsCollected++;
-      console.log(
-        `Pelota recolectada. Total de esferas: ${this.ballsCollected}`
-      );
-      return;
+        return DragonBalls.instance;
     }
 
-    console.log(
-      'Ya se han recolectado las 7 esferas del Dragón! Invoca a Shenlong'
-    );
-  }
 
-  summonShenlong() {
-    if (this.ballsCollected === 7) {
-      console.log('Shenlong ha sido invocado, Pide tu deseo!');
-      this.ballsCollected = 0;
-      return;
+    collectBall(): void {
+        if( this.ballsCollected < 7) {
+            this.ballsCollected++;
+            console.log(`Bola de dragón recolectada. Total de bolas: ${ this.ballsCollected }`);
+            return;
+        }
+
+        console.log('Ya se han recolectado las 7 bolas del dragón!')
     }
 
-    console.log(
-      `\nAún faltan ${7 - this.ballsCollected} pelotas para invocar a Shenlong`
-    );
-  }
-}
+    summonShenLong() {
+        if ( this.ballsCollected === 7) {
+            console.log('%cShenlong ha sido invocado, Pide tu deseo!', COLORS.blue);
+            this.ballsCollected = 0;
+            return;
+        }
 
-function main() {
-  const gokuDragonBalls = DragonBalls.getInstance();
+        console.log(`\n%cAún faltan ${ 7 - this.ballsCollected} bolas churra!!`, COLORS.red);
+    }
 
-  gokuDragonBalls.collectBall();
-  gokuDragonBalls.collectBall();
-  gokuDragonBalls.collectBall();
+ }
 
-  gokuDragonBalls.summonShenlong();
+ function main() {
+    const goku = DragonBalls.getInstance();
+    
+    goku.collectBall();
+    goku.collectBall();
+    goku.collectBall();
 
-  const vegetaDragonBalls = DragonBalls.getInstance();
-  vegetaDragonBalls.collectBall();
-  vegetaDragonBalls.collectBall();
-  vegetaDragonBalls.collectBall();
-  vegetaDragonBalls.collectBall();
+    goku.summonShenLong();
 
-  gokuDragonBalls.summonShenlong();
+    const krilin = DragonBalls.getInstance();
+    krilin.collectBall();
+    krilin.collectBall();
+    krilin.collectBall();
+    krilin.collectBall();
 
-  vegetaDragonBalls.summonShenlong();
-}
+    goku.summonShenLong();
+    krilin.summonShenLong();
+ }
 
-main();
+ main()

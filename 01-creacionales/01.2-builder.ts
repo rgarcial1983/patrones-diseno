@@ -56,11 +56,11 @@ class QueryBuilder {
 
   where(condition: string): QueryBuilder {
     this.conditions.push(condition);
-    return this;
+    return this;    
   }
 
-  orderBy(field: string, direction: 'ASC' | 'DESC' = 'ASC'): QueryBuilder {
-    this.orderFields.push(`order by ${field} ${direction}`);
+  orderBy(field: string, direction: 'ASC' | 'DESC' = 'ASC'): QueryBuilder {    
+    this.orderFields.push(`${ field } ${ direction }`);    
     return this;
   }
 
@@ -71,28 +71,19 @@ class QueryBuilder {
 
   execute(): string {
     const fields = this.fields.length > 0 ? this.fields.join(', ') : '*';
-
-    const whereClause =
-      this.conditions.length > 0
-        ? `WHERE ${this.conditions.join(' AND ')}`
-        : ' ';
-
-    const orderByClause =
-      this.orderFields.length > 0
-        ? `ORDER BY ${this.orderFields.join(', ')}`
-        : '';
-
+    const whereClause = this.conditions.length > 0 ? `WHERE ${ this.conditions.join(' AND ') }` : ' ';
+    const orderByClause = this.orderFields.length > 0 ? `ORDER BY ${this.orderFields.join(', ')}` : '';
     const limitClause = this.limitCount ? `LIMIT ${this.limitCount}` : '';
 
-    return `Select ${fields} from ${this.table} ${whereClause} ${orderByClause} ${limitClause}`;
+    return `Select ${fields} from ${this.table} ${whereClause} ${orderByClause} ${limitClause};`;
   }
 }
 
 function main() {
   const usersQuery = new QueryBuilder('users')
     .select('id', 'name', 'email')
-    .where('age > 20')
-    // .where("country = 'CHI'") // Esto debe de hacer una condición AND
+    .where('age > 18')
+    .where("country = 'Cri'") // Esto debe de hacer una condición AND
     .orderBy('name', 'ASC')
     .orderBy('age', 'DESC')
     .limit(100)

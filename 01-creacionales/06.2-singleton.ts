@@ -19,9 +19,10 @@ class DatabaseConnection {
 
   // Método estático para obtener la instancia única
   public static getInstance(): DatabaseConnection {
+    // Completar: implementar el patrón Singleton
     if (!DatabaseConnection.instance) {
       DatabaseConnection.instance = new DatabaseConnection();
-      console.log('\n%cConectado a la base de datos', COLORS.blue);
+      console.log('\n%cConexión a la base de datos creada!', COLORS.blue);
     }
 
     return DatabaseConnection.instance;
@@ -30,27 +31,24 @@ class DatabaseConnection {
   // Método para conectar a la base de datos
   public connect(): void {
     if (this.connected) {
-      console.log('%cYa estábamos conectados a la base de datos', COLORS.red);
+      console.log('%cYa estábamos conectados.', COLORS.red);
       return;
-    }
-
+    } 
+    
     this.connected = true;
-    console.log('%cNueva conexión a la base de datos', COLORS.green);
-    // Completar: si no está conectado, mostrar mensaje de conexión
+    console.log('%cConectado a la base de datos!', COLORS.green);     
   }
 
   // Método para desconectar de la base de datos
   public disconnect(): void {
+    // Completar: desconectar y mostrar mensaje de desconexión
     if (this.connected) {
-      console.log(
-        '%cDesconectamos la conexión a la base de datos',
-        COLORS.blue
-      );
+      console.log('%cDesconectado de la base de datos.', COLORS.blue);
       this.connected = false;
       return;
     }
-
-    console.log('%cNo hay una conexión activa', COLORS.red);
+     
+    console.log('%cNo hay conexión activa.', COLORS.red);
   }
 }
 

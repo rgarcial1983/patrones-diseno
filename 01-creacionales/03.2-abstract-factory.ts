@@ -12,7 +12,7 @@
  * https://refactoring.guru/es/design-patterns/abstract-factory
  */
 
-import { COLORS } from '../helpers/colors.ts';
+import { COLORS } from "../helpers/colors.ts";
 
 /**
  * !Instrucciones:
@@ -41,28 +41,37 @@ interface Engine {
 
 // 2. Clases Concretas de Productos
 
-class ElectricCar implements Vehicle {
+class ElectricCar implements Vehicle{
+  // Implementación del método assemble
   assemble(): void {
-    console.log('Ensamblando un auto %celéctrico', COLORS.blue);
+    console.log('%cEnsamblando un auto eléctrico', COLORS.blue);
   }
+  // 'Ensamblando un auto eléctrico'
 }
 
 class GasCar implements Vehicle {
+  // Implementación del método assemble
   assemble(): void {
-    console.log('Ensamblando un auto de %ccombustión', COLORS.brown);
+    console.log('%cEnsamblando un auto de combustión', COLORS.red);
   }
+  // 'Ensamblando un auto de combustión'
 }
 
+
 class ElectricEngine implements Engine {
+  // Implementación del método start
   start(): void {
-    console.log('Arrancando motor %celéctrico', COLORS.blue);
+    console.log('%cArrancando motor eléctrico', COLORS.blue);
   }
+  // 'Arrancando motor eléctrico'
 }
 
 class GasEngine implements Engine {
+  // Implementación del método start
   start(): void {
-    console.log('Arrancando motor de %ccombustión', COLORS.brown);
+    console.log('%cArrancando motor de combustión', COLORS.red);
   }
+  // 'Arrancando motor de combustión'
 }
 
 // 3. Interfaz de la Fábrica Abstracta
@@ -73,24 +82,25 @@ interface VehicleFactory {
 }
 
 // 4. Clases Concretas de Fábricas
+
 class ElectricVehicleFactory implements VehicleFactory {
+  // Implementación de los métodos createVehicle y createEngine
   createVehicle(): Vehicle {
     return new ElectricCar();
   }
-
   createEngine(): Engine {
     return new ElectricEngine();
   }
 }
 
 class GasVehicleFactory implements VehicleFactory {
+  // Implementación de los métodos createVehicle y createEngine
   createVehicle(): Vehicle {
     return new GasCar();
   }
   createEngine(): Engine {
     return new GasEngine();
   }
-  // Implementación de los métodos createVehicle y createEngine
 }
 
 // 5. Código Cliente

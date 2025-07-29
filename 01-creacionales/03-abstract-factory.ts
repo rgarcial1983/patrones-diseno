@@ -12,7 +12,7 @@
  * https://refactoring.guru/es/design-patterns/abstract-factory
  */
 
-import { COLORS } from '../helpers/colors.ts';
+import { COLORS } from "../helpers/colors.ts";
 
 /**
  *  El propósito del Abstract Factory es crear familias de objetos relacionados
@@ -20,73 +20,72 @@ import { COLORS } from '../helpers/colors.ts';
  *  de cada uno de esos objetos en el código principal.
  */
 
+
 interface Hamburger {
-  prepare(): void;
+    prepare(): void;
 }
 
 interface Drink {
-  pour(): void;
+    pour(): void;
 }
 
 class ChickenHamburger implements Hamburger {
-  prepare(): void {
-    console.log('Preparando hamburguesa de %cPollo', COLORS.yellow);
-  }
+    prepare(): void {
+      console.log('%cPreparando hamburguesa de pollo', COLORS.yellow);
+    }
 }
 
 class BeefHamburger implements Hamburger {
-  prepare(): void {
-    console.log('Preparando hamburguesa de %cRes', COLORS.red);
-  }
+    prepare(): void {
+      console.log('%cPreparando hamburguesa de res', COLORS.red);
+    }
 }
 
 class Water implements Drink {
-  pour(): void {
-    console.log('Sirviendo un vaso de %cagua', COLORS.blue);
-  }
+    pour(): void {
+      console.log('%cSirviendo un vaso de agua', COLORS.blue);
+    }
 }
 
 class Soda implements Drink {
-  pour(): void {
-    console.log('Sirviendo un vaso de %cgaseosa', COLORS.pink);
-  }
+    pour(): void {
+      console.log('%cSirviendo un vaso de refresco', COLORS.green);
+    }
 }
 
 interface RestaurantFactory {
-  createHamburger(): Hamburger;
-  createDrink(): Drink;
+    createHamburger(): Hamburger;
+    createDrink(): Drink;
 }
 
-class FastFoodRestaurantFactory implements RestaurantFactory {
-  createHamburger(): Hamburger {
-    return new BeefHamburger();
-  }
-
-  createDrink(): Drink {
-    return new Soda();
-  }
+class FastFoodFactory implements RestaurantFactory {
+    createHamburger(): Hamburger {
+        return new BeefHamburger();
+    }
+    createDrink(): Drink {
+        return new Soda();
+    }
 }
 
-class HealthyRestaurantFactory implements RestaurantFactory {
-  createHamburger(): Hamburger {
-    return new ChickenHamburger();
-  }
-
-  createDrink(): Drink {
-    return new Water();
-  }
+class HealthyFoodFactory implements RestaurantFactory {
+    createHamburger(): Hamburger {
+        return new ChickenHamburger();
+    }
+    createDrink(): Drink {
+        return new Water();
+    }
 }
 
-function main(factory: RestaurantFactory) {
-  const hamburger = factory.createHamburger();
-  const drink = factory.createDrink();
+function main( factory: RestaurantFactory ) {
+    const hamburger = factory.createHamburger();
+    const drink = factory.createDrink();
 
-  hamburger.prepare();
-  drink.pour();
+    hamburger.prepare();
+    drink.pour();
 }
 
 console.log('\n%cPedido del menú regular:', COLORS.green);
-main(new FastFoodRestaurantFactory());
+main(new HealthyFoodFactory());
 
-console.log('\n\n%cPedido del menú saludable:', COLORS.green);
-main(new HealthyRestaurantFactory());
+console.log('\n\n%cPedido del menú saludable:', COLORS.pink);
+main(new FastFoodFactory());

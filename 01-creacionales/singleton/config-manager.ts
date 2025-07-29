@@ -1,7 +1,8 @@
 class ConfigManager {
+  
   private config: Record<string, string> = {};
 
-  public setConfig(key: string, value: string): void {
+  public setConfig(key: string, value:string): void {
     this.config[key] = value;
   }
 
@@ -9,8 +10,8 @@ class ConfigManager {
     return this.config[key];
   }
 
-  public getAllConfig(): Record<string, string> {
-    return { ...this.config };
+  public getAllConfig(): Record<string,string>{
+    return {...this.config};
   }
 }
 
